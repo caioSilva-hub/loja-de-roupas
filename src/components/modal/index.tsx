@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -8,21 +8,15 @@ import { ModalStyles } from './style';
 
 const Modal= ({setOpenModal, dados,indice}:any) => {
     const classes = ModalStyles()
-    
-    const checkoutObj={
-        actual_price: "R$ 220,90",
-        image: "https://d3l7rqep7l31az.cloudfront.net/images/products/20002605_615_catalog_1.jpg?1460136912",
-        name: "VESTIDO TRANSPASSE BOW",
-        size: "PP"
-    }
 
-    const addCheckout = () => {
+    const [size, setSize] = useState<any>()
+    const addCheckout = (dados:any) => {
         axios.post(`https://projetomoda22-default-rtdb.firebaseio.com/checkout.json`, 
             {
-            actual_price: `${checkoutObj.actual_price}`,
-            image: `${checkoutObj.image}`,
-            name: `${checkoutObj.name}`,
-            size: `${checkoutObj.size}`
+            actual_price: `${dados.actual_price}`,
+            image: `${dados.image}`,
+            name: `${dados.name}`,
+            size: `${size}`
             }
         ).then(res => {
             console.log(res);
@@ -48,8 +42,8 @@ const Modal= ({setOpenModal, dados,indice}:any) => {
                 <p className={classes.preco}>{dados[indice].regular_price}</p>
                 <p className={classes.vezes}> em até <span>{dados[indice].installments}</span> </p>
                 <p className={classes.tamanho}>Escolha o tamanho</p>
-                <BtSize dados={dados[indice].sizes} />
-                <button className={classes.addcar} onClick={() => addCheckout()}>ADICIONAR AO CARRINHO</button>
+                <BtSize dados={dados[indice].sizes} setSize={setSize} />
+                <button className={classes.addcar} onClick={() => addCheckout(dados[indice])}>ADICIONAR AO CARRINHO</button>
             </div>
         </div>
     </div>

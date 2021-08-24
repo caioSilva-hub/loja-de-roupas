@@ -3,21 +3,23 @@ import { typeDados } from '../../../utils/ModelTypes';
 import { ItenStyles } from './styles'
 
 interface sizeType {
-    dados: testando[]
+    dados: testando[],
+    setSize: any;
 }
 interface testando {
     size: string
     available: boolean
     sku: string
+
 }
 
 
-const BtSize = ({ dados }: sizeType) => {
+const BtSize = ({ dados,setSize }: sizeType) => {
     const classes = ItenStyles()
     return (
         <div className={classes.content}>
             {dados.map((sizes, index) => (
-                <a key={index} className={(sizes.available === true) ? classes.button :classes.buttoDisable}>
+                <a key={index} onClick={() =>setSize(sizes.size)} className={(sizes.available === true) ? classes.button :classes.buttoDisable}>
                     {sizes.size}
                 </a>
             ))}
