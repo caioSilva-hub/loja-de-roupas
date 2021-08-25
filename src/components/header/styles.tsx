@@ -27,6 +27,10 @@ const headerStyle = makeStyles(() => ({
       backgroundColor: "#ead9d1"
     }
   },
+  input:{
+    display:"flex",
+    alignItems:"center"
+  },
 
   headerCompra: {
     height: "50%",

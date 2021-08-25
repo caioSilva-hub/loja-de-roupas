@@ -18,6 +18,18 @@ const ItenStyles = makeStyles(() => ({
             color: "white",
         }
     },
+    active:{
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
+        width:"35px",
+        padding:"5px",
+        border:"2px solid #ebab8f",
+        margin:"5px",
+        cursor:"pointer",
+        background:"#ebab8f",
+        color: "white"
+    },
     buttoDisable:{
         display:"flex",
         alignItems:"center",

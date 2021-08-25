@@ -5,6 +5,7 @@ import { ItenStyles } from './styles'
 interface sizeType {
     dados: testando[],
     setSize: any;
+    size: any;
 }
 interface testando {
     size: string
@@ -14,12 +15,12 @@ interface testando {
 }
 
 
-const BtSize = ({ dados,setSize }: sizeType) => {
+const BtSize = ({ dados, setSize, size }: sizeType) => {
     const classes = ItenStyles()
     return (
         <div className={classes.content}>
             {dados.map((sizes, index) => (
-                <a key={index} onClick={() =>setSize(sizes.size)} className={(sizes.available === true) ? classes.button :classes.buttoDisable}>
+                <a key={index} onClick={() => setSize(sizes.size)} className={sizes.available ? sizes.size === size ? classes.active : classes.button : classes.buttoDisable}>
                     {sizes.size}
                 </a>
             ))}

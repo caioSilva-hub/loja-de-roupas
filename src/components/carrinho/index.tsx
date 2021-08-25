@@ -5,12 +5,14 @@ import { carrinhoStyle } from './styles';
 import axios from 'axios';
 import CardCarrinho from '../cardCarrinho';
 
-const Carrinho = ({ setOpenModal }: any) => {
+const Carrinho = ({ setOpenCart }: any) => {
     const classes = carrinhoStyle()
     const [cardData, setCardData] = useState<any>()
     const [produtos, setProdutos] = useState<any>()
-    console.log(produtos,"produtosprodutosprodutos");
-    
+    console.log(produtos, "produtosprodutosprodutos");
+    console.log(cardData, "dataaaaa");
+
+
 
     useEffect(() => {
         axios.get("https://projetomoda22-default-rtdb.firebaseio.com/checkout.json"
@@ -21,8 +23,8 @@ const Carrinho = ({ setOpenModal }: any) => {
 
     useEffect(() => {
         if (produtos) {
-            const newArray = produtos.map((item:any) => item[1])
-            setCardData(newArray.filter((item:any) => item !== 'lock'))
+            const newArray = produtos.map((item: any) => item[1])
+            setCardData(newArray.filter((item: any) => item !== 'lock'))
         }
     }, [produtos]);
 
@@ -33,20 +35,23 @@ const Carrinho = ({ setOpenModal }: any) => {
                     color="#ebab8f"
                     icon={faTimesCircle}
                     size="2x"
-                    onClick={() => setOpenModal(false)}
+                    onClick={() => setOpenCart(false)}
                     className={classes.closeModal}
                 />
                 <p>carrinho</p>
             </div>
-            {produtos ? (
+            {(cardData?.length > 0) ? (
                 <>
                     <CardCarrinho produtos={cardData} />
                 </>
             ) : (
-                <img className={classes.imgCarVazio}
-                    src="../carrinho-vazio.svg"
-                    alt="carrinho-vazio"
-                />
+                <>
+                    <p style={{color:"#ebab8f"}}>Carrinho Vazio</p>
+                    <img className={classes.imgCarVazio}
+                        src="../carrinho-vazio.svg"
+                        alt="carrinho-vazio"
+                    />
+                </>
             )}
         </div>
     )

@@ -6,7 +6,7 @@ import BtSize from '../btSize';
 import { ModalStyles } from './style';
 
 
-const Modal= ({setOpenModal, dados,indice}:any) => {
+const Modal= ({setOpenModal, dados,indice, setOpenCart}:any) => {
     const classes = ModalStyles()
 
     const [size, setSize] = useState<any>()
@@ -19,7 +19,8 @@ const Modal= ({setOpenModal, dados,indice}:any) => {
             size: `${size}`
             }
         ).then(res => {
-            console.log(res);
+            setOpenModal(false)
+            setOpenCart(true)
         })
     }
   return (
@@ -42,7 +43,7 @@ const Modal= ({setOpenModal, dados,indice}:any) => {
                 <p className={classes.preco}>{dados[indice].regular_price}</p>
                 <p className={classes.vezes}> em até <span>{dados[indice].installments}</span> </p>
                 <p className={classes.tamanho}>Escolha o tamanho</p>
-                <BtSize dados={dados[indice].sizes} setSize={setSize} />
+                <BtSize dados={dados[indice].sizes} setSize={setSize} size={size} />
                 <button className={classes.addcar} onClick={() => addCheckout(dados[indice])}>ADICIONAR AO CARRINHO</button>
             </div>
         </div>

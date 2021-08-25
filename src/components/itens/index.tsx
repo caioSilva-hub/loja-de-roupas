@@ -5,7 +5,7 @@ import { typeDados } from '../../../utils/ModelTypes'
 import Modal from '../modal';
 
 
-const Itens = ({ dados }: any) => {
+const Itens = ({ dados, setOpenCart }: any) => {
     const [openModal, setOpenModal] = useState(false)
     const classes = ItenStyles()
     const [indice, setindice] = useState<number>(1)
@@ -16,13 +16,15 @@ const Itens = ({ dados }: any) => {
                 <div className={classes.contentCard}>
                     {dados ? (
                         <>
-                            {dados.map((itens:any, index:any) => (
+                            {dados.map((itens: any, index: any) => (
                                 <>
                                     <div className={classes.image} onClick={() => (setOpenModal(true), setindice(index))}>
                                         {itens.image ? (
                                             <>
-                                            <div className={classes.desconto}><p>10%</p></div>
-                                            <img src={itens.image} alt={itens.name} />
+                                                {itens.discount_percentage &&
+                                                    <div className={classes.desconto}><p>{itens.discount_percentage}</p></div>
+                                                }
+                                                <img src={itens.image} alt={itens.name} />
                                             </>
                                         ) : (
                                             <img src="../imagem-default.png" alt="sem imagem" />
@@ -42,7 +44,7 @@ const Itens = ({ dados }: any) => {
                 </div>
             </div>
             {openModal &&
-               <Modal setOpenModal={setOpenModal} dados={dados} indice={indice}/>
+                <Modal setOpenModal={setOpenModal} dados={dados} indice={indice} setOpenCart={setOpenCart} />
             }
         </>
     )

@@ -4,32 +4,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Carrinho from '../carrinho';
 
-const Header = ({ setBusca }: any) => {
+const Header = ({ setBusca, setOpenCart, openCart }: any) => {
     const classes = headerStyle()
-    const [openModal, setOpenModal] = useState(false)
 
     return (
         <div className={classes.header}>
             <div className={classes.container}>
-                <a className={classes.logo} href="index.html">
+                <a className={classes.logo} href="index">
                     <img src="../cabide.png" alt="cabide" />
                     Projeto Modas
                 </a>
-                <div>
-                    <input type="text" onChange={(ev) => setBusca(ev.target.value)} />
+                <div className={classes.input}>
+                    <input  type="text" onChange={(ev) => setBusca(ev.target.value)} placeholder="Digite sua pesquisa"/>
                     <FontAwesomeIcon
                         icon={faSearch}
+                        style={{marginLeft:"5px"}}
                     />
                 </div>
                 <img
                     className={classes.headerCompra}
                     src="../carrinho-de-compras.png "
                     alt="teste"
-                    onClick={() => setOpenModal(true)} />
+                    onClick={() => setOpenCart(true)} />
             </div>
 
-            {openModal &&
-                <Carrinho setOpenModal={setOpenModal} />
+            {openCart &&
+                <Carrinho setOpenCart={setOpenCart} />
             }
         </div>
     )

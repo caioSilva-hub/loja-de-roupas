@@ -6,11 +6,11 @@ import Header from '../src/components/header'
 import axios from 'axios'
 
 const Home: NextPage = () => {
-  const [openModal, setOpenModal] = useState(false)
   const [data, setData] = useState<any>()
-  const [g, setG] = useState<any>()
+  const [reference, setReference] = useState<any>()
   const [busca, setBusca] = useState<string>()
-  console.log(data, "data");
+  const [openModal, setOpenModal] = useState(false)
+  const [openCart, setOpenCart] = useState(false)
 
   useEffect(() => {
     axios
@@ -18,23 +18,22 @@ const Home: NextPage = () => {
       )
       .then((preview) => {
         setData(preview.data);
-        setG(preview.data)
+        setReference(preview.data)
       });
   }, []);
 
   useEffect(() => {
     const lowerBusca = busca?.toLowerCase()
-    setData(g?.filter((roupa: any) =>
+    setData(reference?.filter((roupa: any) =>
       roupa.name.toLowerCase().includes(lowerBusca)
     ))
   }, [busca]);
 
-console.log(data, 'data')
 
   return (
     <div>
-      <Header setBusca={setBusca} />
-      <Itens dados={data}  />
+      <Header setBusca={setBusca} setOpenCart={setOpenCart} openCart={openCart}/>
+      <Itens dados={data} openModal={openModal} setOpenCart={setOpenCart} />
     </div>
   )
 }
